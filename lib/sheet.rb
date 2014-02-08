@@ -22,7 +22,7 @@ class Sheet
   def tokenize(input)
     if m = input.match(/^(-?\d+)$/)
       return m[1].to_f
-    elsif m = input.match(/^([\+\-\/\*])$/)
+    elsif m = input.match(/^([\+\-\/\*]||(\+\+)||(\-\-))$/)
       return m[1]
     elsif m = input.match(/^([A-Z])(\d+)$/)
       row = m[1].ord - "A"[0].ord
@@ -113,6 +113,12 @@ class Sheet
       elsif operand == "/"
         vals = elements.pop(2)
         elements << vals[0] / vals[1]
+      elsif operand == "++"
+        vals = elements.pop(1)
+        elements << vals[0] + 1
+      elsif operand == "--"
+        vals = elements.pop(1)
+        elements << vals[0] - 1
       else
         puts "Unknown operand #{operand}"
         return false
