@@ -1,0 +1,12 @@
+SPREADSHEET CALCULATOR
+========================
+
+This is a spreadsheet calculator that runs on ruby 2.0.0. To use simply clone this repo to a local directory and then...
+
+for tests:
+1) ./tests/unit_tests.rb 
+
+for running as a script:
+1) ./bin/spreadsheet_calculator.rb < sample_inputs/test_input 
+
+
