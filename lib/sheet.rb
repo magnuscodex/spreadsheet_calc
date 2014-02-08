@@ -26,9 +26,9 @@ class Sheet
       return m[1]
     elsif m = input.match(/^([A-Z])(\d+)$/)
       row = m[1].ord - "A"[0].ord
-      if row >= $M
+      if row >= @height
         puts "Row #{m[1]} is out of bounds."
-        exit 1
+        return false
       end
       return [row, m[2].to_i - 1]
     else
