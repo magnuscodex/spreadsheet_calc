@@ -20,7 +20,7 @@ class Sheet
   end
 
   def tokenize(input)
-    if m = input.match(/^(\d+)$/)
+    if m = input.match(/^(-?\d+)$/)
       return m[1].to_f
     elsif m = input.match(/^([\+\-\/\*])$/)
       return m[1]
