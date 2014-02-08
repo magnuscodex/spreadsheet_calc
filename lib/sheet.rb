@@ -16,6 +16,7 @@ class Sheet
     end
     @width = width
     @height = height
+    @computed = false
   end
 
   def tokenize(input)
@@ -37,6 +38,7 @@ class Sheet
   end
 
   def input_cell(row, col, expression)
+    @computed = false
     input_stack = expression.split()
 
     for e in input_stack
@@ -81,6 +83,7 @@ class Sheet
     if calculated < @width * @height
       return false
     end
+    @calculated = true
     return true
   end
 
@@ -96,7 +99,7 @@ class Sheet
       if operand.is_a?Float
         elements << operand
       elsif operand.is_a? Array
-        elements << @sheet[operand[0]][operand[1]][0] # We assume it's solved
+        elements << @sheet[operand[0]][operand[1]][0][0] # We assume it's solved
       elsif operand == "+"
         vals = elements.pop(2)
         elements << vals[0] + vals[1]
@@ -114,7 +117,7 @@ class Sheet
         return false
       end
     end
-    @sheet[row][col][0] = elements[0]
+    @sheet[row][col][0] = elements
     for blocked in @sheet[row][col][2]
       @sheet[blocked[0]][blocked[1]][1].delete([row,col])
       if @sheet[blocked[0]][blocked[1]][1].empty?
@@ -124,13 +127,30 @@ class Sheet
     return true
   end
 
+  # Function to get a cell val
+  # Note that this will only return a value if that cell is one element
+  def get_cell_val(row, col)
+    val = @sheet[row][col][0]
+    if val.size == 1
+      return val[0]
+    else
+      return nil
+    end
+  end
 
+
+  # Converts a sheet into the output format the problem requires.
+  # Note that this only works if the sheet has been successfully computed
   def to_s
+    if not @calculated
+      return "Uncalculated Sheet"
+    end
+
     out = []
     out << "#{@width} #{@height}"
     for i in (0...@height)
       for j in (0...@width)
-        out << "%.5f" % @sheet[i][j][0]
+        out << "%.5f" % @sheet[i][j][0][0]
       end
     end
     ret = out.join("\n")
