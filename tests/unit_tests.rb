@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 
 require "test/unit"
-require "../lib/sheet"
+require_relative "../lib/sheet"
 
 class TestSheet < Test::Unit::TestCase
 

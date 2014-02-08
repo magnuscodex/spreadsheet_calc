@@ -1,6 +1,6 @@
 #!/usr/bin/env ruby
 
-require "./lib/sheet.rb"
+require_relative "../lib/sheet.rb"
 
 $N,$M = $stdin.gets.chomp.split().map{|e| e.to_i}
 
