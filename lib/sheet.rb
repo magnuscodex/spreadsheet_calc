@@ -81,6 +81,7 @@ class Sheet
     end
     
     if calculated < @width * @height
+      puts "Cannot calculate value for all cells. Probable cyclic dependency."
       return false
     end
     @calculated = true
